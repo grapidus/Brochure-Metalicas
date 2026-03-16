@@ -1,0 +1,124 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-height);
+  transition: background var(--transition-base), box-shadow var(--transition-base);
+}
+
+.scrolled {
+  background: rgba(13, 13, 13, 0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 0 var(--color-border);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.logoText {
+  color: var(--color-text-primary);
+}
+
+.logoAccent {
+  color: var(--color-accent);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.navLink {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.navLink:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-card);
+}
+
+.navCta {
+  margin-left: 0.5rem;
+  padding: 0.45rem 1.25rem;
+  background: var(--color-accent);
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+.navCta:hover {
+  background: var(--color-accent-light);
+  transform: translateY(-1px);
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text-primary);
+  border-radius: 2px;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.hamburgerOpen span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburgerOpen span:nth-child(2) { opacity: 0; }
+.hamburgerOpen span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: rgba(13, 13, 13, 0.98);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--color-border);
+    padding: 1rem;
+  }
+
+  .navOpen { display: flex; }
+
+  .navLink, .navCta {
+    padding: 0.85rem 1rem;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  .navCta { margin-left: 0; margin-top: 0.5rem; }
+}
