@@ -13,6 +13,47 @@
 
 .brand {}
 
+.brandLogo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.brandMainRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.3rem;
+}
+
+.brandMainRow::before,
+.brandMainRow::after {
+  content: '';
+  width: clamp(20px, 3vw, 50px);
+  height: 1.5px;
+  border-radius: 999px;
+  background: rgba(241, 245, 249, 0.5);
+}
+
+.brandMain {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 400;
+  color: rgba(241, 245, 249, 0.8);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+.brandAccent {
+  font-family: 'Yellowtail', cursive;
+  font-size: clamp(1.3rem, 3.5vw, 2rem);
+  font-weight: 400;
+  color: var(--color-accent);
+  text-shadow: 0 0 12px rgba(34, 211, 238, 0.3);
+  margin-top: 0;
+}
+
 .logoText { font-size: 1.4rem; font-weight: 800; color: var(--color-text-primary); }
 .logoAccent { font-size: 1.4rem; font-weight: 800; color: var(--color-accent); }
 
@@ -21,7 +62,8 @@
   color: var(--color-accent);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-top: 0.25rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .motto {
@@ -64,8 +106,9 @@
 
 .bottom {
   border-top: 1px solid var(--color-border);
-  padding: var(--spacing-sm) 0;
+  padding: var(--spacing-lg) 0 var(--spacing-sm) 0;
   text-align: center;
+  margin-top: 1rem;
 }
 
 .bottom p {
