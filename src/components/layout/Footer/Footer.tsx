@@ -6,8 +6,12 @@ const Footer: React.FC = () => {
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
         <div className={styles.brand}>
-          <span className={styles.logoText}>Metálicas</span>
-          <span className={styles.logoAccent}> GERCS</span>
+          <div className={styles.brandLogo}>
+            <span className={styles.brandMainRow}>
+              <span className={styles.brandMain}>Metálicas</span>
+            </span>
+            <span className={styles.brandAccent}>GERCS</span>
+          </div>
           <p className={styles.tagline}>Soldadura y Fabricación</p>
           <p className={styles.motto}>La solución perfecta para sus necesidades metálicas</p>
         </div>
