@@ -11,8 +11,6 @@
   padding-bottom: var(--spacing-xl);
 }
 
-.brand {}
-
 .brandLogo {
   display: flex;
   flex-direction: column;
@@ -54,8 +52,16 @@
   margin-top: 0;
 }
 
-.logoText { font-size: 1.4rem; font-weight: 800; color: var(--color-text-primary); }
-.logoAccent { font-size: 1.4rem; font-weight: 800; color: var(--color-accent); }
+.logoText {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+.logoAccent {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-accent);
+}
 
 .tagline {
   font-size: 0.85rem;
@@ -74,7 +80,8 @@
   line-height: 1.5;
 }
 
-.links, .contact {
+.links,
+.contact {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -89,13 +96,15 @@
   margin-bottom: 0.25rem;
 }
 
-.links a, .contact a {
+.links a,
+.contact a {
   font-size: 0.9rem;
   color: var(--color-text-secondary);
   transition: color var(--transition-fast);
 }
 
-.links a:hover, .contact a:hover {
+.links a:hover,
+.contact a:hover {
   color: var(--color-accent);
 }
 
