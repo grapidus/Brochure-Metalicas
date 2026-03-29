@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '../../UI/Button/Button';
 import styles from './Hero.module.css';
-
 const Hero: React.FC = () => {
   return (
     <section id="inicio" className={styles.hero}>
@@ -60,10 +59,6 @@ const Hero: React.FC = () => {
             <span>metalicasgercs.sas@gmail.com</span>
           </a>
         </div>
-      </div>
-
-      <div className={styles.scrollIndicator}>
-        <span />
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import About from '../components/sections/About/About';
 import MissionVision from '../components/sections/About/MissionVision';
 import Services from '../components/sections/Services/Services';
 import Portfolio from '../components/sections/Portfolio/Portfolio';
+import Gallery from '../components/sections/Gallery/Gallery';
 import Team from '../components/sections/Team/Team';
 import Contact from '../components/sections/Contact/Contact';
 
@@ -15,6 +16,7 @@ const HomePage: React.FC = () => {
       <MissionVision />
       <Services />
       <Portfolio />
+      <Gallery />
       <Team />
       <Contact />
     </main>
