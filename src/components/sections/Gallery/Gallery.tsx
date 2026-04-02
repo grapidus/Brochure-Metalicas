@@ -2,31 +2,31 @@ import React, { useState, useCallback, useEffect, useMemo, memo } from 'react';
 import styles from './Gallery.module.css';
 
 const cerchasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/cerchas/*.{jpg,jpeg,png}',
+  '../../../assets/cerchas/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const cerramientosModules = import.meta.glob<{ default: string }>(
-  '../../../assets/cerramientos/*.{jpg,jpeg,png}',
+  '../../../assets/cerramientos/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const cortinasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/cortinas/*.{jpg,jpeg,png}',
+  '../../../assets/cortinas/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const cubiertasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/cubiertas/*.{jpg,jpeg,png}',
+  '../../../assets/cubiertas/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const escalerasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/escaleras/*.{jpg,jpeg,png}',
+  '../../../assets/escaleras/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const estructurasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/estructuras/*.{jpg,jpeg,png}',
+  '../../../assets/estructuras/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const metalMaderaModules = import.meta.glob<{ default: string }>(
-  '../../../assets/metalmadera/*.{jpg,jpeg,png}',
+  '../../../assets/metalmadera/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 
