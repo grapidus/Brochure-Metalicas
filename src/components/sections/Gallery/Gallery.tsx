@@ -1,37 +1,37 @@
-import React, { useState, useCallback, useEffect, useMemo, memo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import styles from './Gallery.module.css';
 
 const cerchasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/cerchas/*.{jpg,jpeg,png}',
+  '../../../assets/cerchas/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const cerramientosModules = import.meta.glob<{ default: string }>(
-  '../../../assets/cerramientos/*.{jpg,jpeg,png}',
+  '../../../assets/cerramientos/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const cortinasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/cortinas/*.{jpg,jpeg,png}',
+  '../../../assets/cortinas/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const cubiertasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/cubiertas/*.{jpg,jpeg,png}',
+  '../../../assets/cubiertas/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const escalerasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/escaleras/*.{jpg,jpeg,png}',
+  '../../../assets/escaleras/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const estructurasModules = import.meta.glob<{ default: string }>(
-  '../../../assets/estructuras/*.{jpg,jpeg,png}',
+  '../../../assets/estructuras/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 const metalMaderaModules = import.meta.glob<{ default: string }>(
-  '../../../assets/metalmadera/*.{jpg,jpeg,png}',
+  '../../../assets/metalmadera/*.{jpg,jpeg,png,webp}',
   { eager: true }
 );
 
 const toUrls = (modules: Record<string, { default: string }>) =>
-  Object.values(modules).map(m => m.default);
+  Object.values(modules).map((m) => m.default);
 
 const CATEGORIES = [
   { id: 'all', label: 'Todos' },
@@ -41,7 +41,7 @@ const CATEGORIES = [
   { id: 'cubiertas', label: 'Cubiertas Metálicas' },
   { id: 'escaleras', label: 'Escaleras Metálicas' },
   { id: 'estructuras', label: 'Estructuras' },
-  { id: 'metalmadera', label: 'Metal-Madera' },
+  { id: 'metalmadera', label: 'Metal-Madera' }
 ] as const;
 
 type CategoryId = (typeof CATEGORIES)[number]['id'];
@@ -53,7 +53,7 @@ const IMAGE_MAP: Record<Exclude<CategoryId, 'all'>, string[]> = {
   cubiertas: toUrls(cubiertasModules),
   escaleras: toUrls(escalerasModules),
   estructuras: toUrls(estructurasModules),
-  metalmadera: toUrls(metalMaderaModules),
+  metalmadera: toUrls(metalMaderaModules)
 };
 
 const PAGE_SIZE = 12;
@@ -66,7 +66,11 @@ interface GalleryItemProps {
   onClick: (index: number) => void;
 }
 
-const GalleryItem = memo(function GalleryItem({ src, index, onClick }: GalleryItemProps) {
+const GalleryItem = memo(function GalleryItem({
+  src,
+  index,
+  onClick
+}: GalleryItemProps) {
   return (
     <button
       className={styles.item}
@@ -76,7 +80,8 @@ const GalleryItem = memo(function GalleryItem({ src, index, onClick }: GalleryIt
       <img
         src={src}
         alt={`Proyecto ${index + 1}`}
-        loading="lazy"
+        loading={index < 8 ? 'eager' : 'lazy'}
+        fetchPriority={index < 4 ? 'high' : 'auto'}
         decoding="async"
         className={styles.img}
       />
@@ -95,50 +100,93 @@ interface LightboxProps {
   onClose: () => void;
 }
 
-const Lightbox = memo(function Lightbox({ images, initialIndex, onClose }: LightboxProps) {
+const Lightbox = memo(function Lightbox({
+  images,
+  initialIndex,
+  onClose
+}: LightboxProps) {
   const [index, setIndex] = useState(initialIndex);
+  const [rotation, setRotation] = useState(0);
 
-  const goPrev = useCallback(() =>
-    setIndex(i => (i - 1 + images.length) % images.length), [images.length]);
+  const goPrev = useCallback(() => {
+    setRotation(0);
+    setIndex((i) => (i - 1 + images.length) % images.length);
+  }, [images.length]);
 
-  const goNext = useCallback(() =>
-    setIndex(i => (i + 1) % images.length), [images.length]);
+  const goNext = useCallback(() => {
+    setRotation(0);
+    setIndex((i) => (i + 1) % images.length);
+  }, [images.length]);
+
+  const rotateImage = useCallback(
+    () => setRotation((prev) => (prev + 90) % 360),
+    []
+  );
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
       if (e.key === 'ArrowLeft') goPrev();
       if (e.key === 'ArrowRight') goNext();
+      if (e.key.toLowerCase() === 'r') rotateImage();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [onClose, goPrev, goNext]);
+  }, [onClose, goPrev, goNext, rotateImage]);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, []);
 
   return (
     <div className={styles.lightbox} onClick={onClose}>
-      <button className={styles.lbClose} onClick={onClose} aria-label="Cerrar">✕</button>
+      <button className={styles.lbClose} onClick={onClose} aria-label="Cerrar">
+        ✕
+      </button>
+      <button
+        className={styles.lbRotate}
+        onClick={(e) => {
+          e.stopPropagation();
+          rotateImage();
+        }}
+        aria-label="Girar imagen 90 grados"
+        title="Girar 90 grados"
+      >
+        ↻
+      </button>
       <button
         className={`${styles.lbNav} ${styles.lbPrev}`}
-        onClick={e => { e.stopPropagation(); goPrev(); }}
+        onClick={(e) => {
+          e.stopPropagation();
+          goPrev();
+        }}
         aria-label="Anterior"
-      >‹</button>
+      >
+        ‹
+      </button>
       <img
         src={images[index]}
         alt={`Imagen ${index + 1}`}
         className={styles.lbImg}
-        onClick={e => e.stopPropagation()}
+        style={{ transform: `rotate(${rotation}deg)` }}
+        onClick={(e) => e.stopPropagation()}
       />
       <button
         className={`${styles.lbNav} ${styles.lbNext}`}
-        onClick={e => { e.stopPropagation(); goNext(); }}
+        onClick={(e) => {
+          e.stopPropagation();
+          goNext();
+        }}
         aria-label="Siguiente"
-      >›</button>
-      <span className={styles.lbCounter}>{index + 1} / {images.length}</span>
+      >
+        ›
+      </button>
+      <span className={styles.lbCounter}>
+        {index + 1} / {images.length}
+      </span>
     </div>
   );
 });
@@ -169,11 +217,15 @@ const Gallery: React.FC = () => {
     setVisibleCount(PAGE_SIZE);
   }, []);
 
-  const loadMore = useCallback(() => setVisibleCount(prev => prev + PAGE_SIZE), []);
+  const loadMore = useCallback(
+    () => setVisibleCount((prev) => prev + PAGE_SIZE),
+    []
+  );
 
   // openLightbox pasa la lista completa al Lightbox, no la paginada
   const openLightbox = useCallback(
-    (index: number) => setLightbox({ images: allFiltered, initialIndex: index }),
+    (index: number) =>
+      setLightbox({ images: allFiltered, initialIndex: index }),
     [allFiltered]
   );
 
@@ -192,7 +244,7 @@ const Gallery: React.FC = () => {
 
         <div className={styles.filtersWrapper}>
           <div className={styles.filters}>
-            {CATEGORIES.map(cat => (
+            {CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
                 className={`${styles.filterBtn} ${activeCategory === cat.id ? styles.active : ''}`}
