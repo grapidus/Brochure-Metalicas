@@ -1,4 +1,5 @@
 import React from 'react';
+import logoGray from '../../../assets/logos/logoGray.webp';
 import styles from './Footer.module.css';
 
 const Footer: React.FC = () => {
@@ -7,10 +8,14 @@ const Footer: React.FC = () => {
       <div className={`container ${styles.inner}`}>
         <div className={styles.brand}>
           <div className={styles.brandLogo}>
-            <span className={styles.brandMainRow}>
-              <span className={styles.brandMain}>Metálicas</span>
-            </span>
-            <span className={styles.brandAccent}>GERCS</span>
+            <img
+              src={logoGray}
+              alt="GERCS - Estructuras Metálicas"
+              className={styles.brandImage}
+              loading="lazy"
+              width={320}
+              height={80}
+            />
           </div>
           <p className={styles.tagline}>Soldadura y Fabricación</p>
           <p className={styles.motto}>
@@ -23,6 +28,7 @@ const Footer: React.FC = () => {
           <a href="#nosotros">Nosotros</a>
           <a href="#servicios">Servicios</a>
           <a href="#portafolio">Portafolio</a>
+          <a href="#galeria">Galería</a>
           <a href="#equipo">Equipo</a>
           <a href="#contacto">Contacto</a>
         </div>

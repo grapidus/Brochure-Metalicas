@@ -66,7 +66,6 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
-  content-visibility: auto;
 }
 
 .item {
@@ -164,8 +163,12 @@
 }
 
 @keyframes lbFadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .lbImg {
@@ -175,7 +178,9 @@
   border-radius: var(--radius-md);
   box-shadow: 0 0 80px rgba(0, 0, 0, 0.8);
   user-select: none;
-  will-change: contents;
+  will-change: transform;
+  transform-origin: center center;
+  transition: transform 220ms ease;
 }
 
 .lbClose {
@@ -200,12 +205,34 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
+.lbRotate {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lbRotate:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .lbNav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 11, 17, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   color: white;
   width: 50px;
   height: 50px;
@@ -220,6 +247,9 @@
     border-color var(--transition-fast);
   line-height: 1;
   padding-bottom: 2px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
 }
 
 .lbNav:hover {
@@ -267,22 +297,35 @@
   }
 
   .lbNav {
-    width: 38px;
-    height: 38px;
-    font-size: 1.6rem;
+    top: auto;
+    bottom: 1rem;
+    transform: none;
+    width: 52px;
+    height: 52px;
+    font-size: 1.9rem;
+    background: rgba(8, 11, 17, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.5);
   }
 
   .lbPrev {
-    left: 0.5rem;
+    left: calc(50% - 74px);
   }
 
   .lbNext {
-    right: 0.5rem;
+    right: calc(50% - 74px);
   }
 
   .lbImg {
     max-width: 94vw;
-    max-height: 75vh;
+    max-height: 72vh;
+  }
+
+  .lbCounter {
+    bottom: 4.8rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.9);
   }
 }
 
@@ -295,6 +338,33 @@
   .filterBtn {
     font-size: 0.78rem;
     padding: 0.35rem 0.85rem;
+  }
+
+  .lbNav {
+    width: 48px;
+    height: 48px;
+    font-size: 1.75rem;
+    bottom: 0.85rem;
+  }
+
+  .lbPrev {
+    left: calc(50% - 68px);
+  }
+
+  .lbNext {
+    right: calc(50% - 68px);
+  }
+
+  .lbCounter {
+    bottom: 4.4rem;
+    font-size: 0.82rem;
+  }
+
+  .lbRotate,
+  .lbClose {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
   }
 }
 

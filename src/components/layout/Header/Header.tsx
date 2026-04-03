@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import logoGray from '../../../assets/logos/logoGray.webp';
 import styles from './Header.module.css';
 
 const NAV_LINKS = [
@@ -6,8 +7,9 @@ const NAV_LINKS = [
   { label: 'Misión & Visión', href: '#mision' },
   { label: 'Servicios', href: '#servicios' },
   { label: 'Portafolio', href: '#portafolio' },
+  { label: 'Galería', href: '#galeria' },
   { label: 'Equipo', href: '#equipo' },
-  { label: 'Contacto', href: '#contacto' },
+  { label: 'Contacto', href: '#contacto' }
 ];
 
 const Header: React.FC = () => {
@@ -26,12 +28,16 @@ const Header: React.FC = () => {
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={`container ${styles.inner}`}>
         <a href="#inicio" className={styles.logo}>
-          <span className={styles.logoText}>Metálicas</span>
-          <span className={styles.logoAccent}> GERCS</span>
+          <img
+            src={logoGray}
+            alt="GERCS - Estructuras Metálicas"
+            className={styles.logoImage}
+            loading="lazy"
+          />
         </a>
 
         <nav className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}>
-          {NAV_LINKS.map(link => (
+          {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -41,14 +47,18 @@ const Header: React.FC = () => {
               {link.label}
             </a>
           ))}
-          <a href="#contacto" className={styles.navCta} onClick={handleNavClick}>
+          <a
+            href="#contacto"
+            className={styles.navCta}
+            onClick={handleNavClick}
+          >
             Cotizar
           </a>
         </nav>
 
         <button
           className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ''}`}
-          onClick={() => setMenuOpen(prev => !prev)}
+          onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="Menú"
         >
           <span />
